@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |g|
   g.name = 'murmur-grpc'
-  g.version = '0.0.1'
+  g.version = '0.0.2'
   g.licenses = ['GPL-3.0']
   g.summary = 'Murmur gRPC bindings for Ruby'
   g.description = 'Provides Murmur gRPC bindings for Ruby'
@@ -18,4 +18,5 @@ Gem::Specification.new do |g|
           lib/murmur_rpc/murmur_rpc_pb.rb
           lib/murmur_rpc/murmur_rpc_services_pb.rb
   ]
+  g.add_runtime_dependency 'grpc', '~> 1.32'
 end
