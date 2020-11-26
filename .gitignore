@@ -1,3 +1,5 @@
 .#**
 *.gem
 lib/murmur_rpc/*_pb.rb
+.yardoc/**
+doc/**

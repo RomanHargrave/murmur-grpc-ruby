@@ -1,0 +1,8 @@
+# Do not lint generated files
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'lib/murmur_rpc/*_pb.rb'
+
+Style/CommentedKeyword:
+  Enabled: false

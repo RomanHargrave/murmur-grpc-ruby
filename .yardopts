@@ -1,0 +1,1 @@
+--exclude '_pb\\.rb$' -m markdown
