@@ -6,7 +6,7 @@
 
 module MurmurRPC
   # An enumerable that depletes an internal queue
-  # When the queue is not empty, {#each} will block
+  # When the queue is empty, {#each} will block
   # until the queue is repopulated.
   #
   # Blocking behaviour is achieved by abuse of {Thread::current} {Thread::stop} and {Thread#wakeup}
@@ -21,26 +21,24 @@ module MurmurRPC
       @mutex = Mutex.new
     end
 
-    # Prepend an element to the buffer
+    # Append an element to the queue and wake the consumer thread
     #
     # @param [Object] elem Element to prepend
-    def prepend(elem)
-      @mutex.synchronize { @queue.prepend(elem) }
-      @read_thread&.wakeup
+    def append(elem)
+      @mutex.synchronize { @queue << elem }
+      @iter_thr&.wakeup
     end
 
     # (see #prepend)
-    def <<(elem)
-      self.prepend(elem)
-    end
+    alias << append
 
-    # (see Enumerable#each)
+    # Consume queue entries, head first
     def each
-      raise 'This enumerator can only be read from a single thread' if @read_thread && @read_thread != Thread.current
+      raise 'This enumerator can only be read from a single thread' if @iter_thr && @iter_thr != Thread.current
 
-      @read_thread = Thread.current
+      @iter_thr = Thread.current
       loop do
-        yield @mutex.synchronize { @queue.pop }
+        yield @mutex.synchronize { @queue.shift }
         Thread.stop if @queue.empty?
       end
       self
