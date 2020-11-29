@@ -134,6 +134,16 @@ module MurmurRPC
   #   @return [Server] Server
   # @!attribute [rw] context
   #   @return [Integer] Context (see {ContextAction::Context})
+  # @!attribute [rw] action
+  #   @return [String] Action name
+  # @!attribute [rw] text
+  #   @return [String] Action text
+  # @!attribute [rw] actor
+  #   @return [User] The user that triggered the context action
+  # @!attribute [rw] user
+  #   @return [User] The user targeted by the context action
+  # @!attribute [rw] channel
+  #   @return [Channel] The channel targeted by the context action
   class ContextAction
     # gRPC Enumeration `MurmurRPC.ContextAction.Context`
     #
@@ -971,23 +981,27 @@ module MurmurRPC
 
     # Murmur gRPC V1 Service Stub
     #
-    # @!method get_uptime()
+    # @!method get_uptime(void)
     #   Get the root server's uptime
     #
+    #   @param [Void] void Empty message
     #   @return [Uptime] Server uptime
-    # @!method get_version()
+    # @!method get_version(void)
     #   Get the root server's version information
     #
     #   @return [Version] Version information
-    # @!method events()
+    # @!method events(void)
     #   Get a stream of events
     #
+    #   @param [Void] void Empty message
     #   @return [Enumerable<Event>] Events
     #
-    # @!method server_create()
+    # @!method server_create(void)
     #   Create a virtual server
     #
+    #   @param [Void] void Empty message
     #   @return [Server] New virtual server
+    #
     # @!method server_query(query)
     #   Retrieve a list of virtual servers
     #
@@ -1048,7 +1062,7 @@ module MurmurRPC
     #   to the entire server. Otherwise it will be targeted as specified.
     #
     #   @param [TextMessage] text_message Text message to send
-    # @!method text_message_field(filter)
+    # @!method text_message_filter(filter)
     #   Filter server text messages
     #
     #   When a filter stream is active, text messages sent from users to the server
@@ -1083,9 +1097,10 @@ module MurmurRPC
     #   Set the configuration value for a given key
     #
     #   @param [Config::Field] field Message with key and desired value
-    # @!method config_get_default()
+    # @!method config_get_default(void)
     #   Get the default server configuration
     #
+    #   @param [Void] void Empty message
     #   @return [Config] Default configuration
     #
     # @!method channel_query(query)
