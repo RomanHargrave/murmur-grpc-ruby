@@ -5,6 +5,7 @@
 # Licensed under the GPL-3.0 - see LICENSE for more details
 
 module MurmurRPC
+  # @private
   # An enumerable that depletes an internal queue
   # When the queue is empty, {#each} will block
   # until the queue is repopulated.
