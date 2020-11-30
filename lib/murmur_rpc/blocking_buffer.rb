@@ -10,7 +10,7 @@ module MurmurRPC
   # When the queue is empty, {#each} will block
   # until the queue is repopulated.
   #
-  # Blocking behaviour is achieved by abuse of {Thread::current} {Thread::stop} and {Thread#wakeup}
+  # Blocking behaviour is achieved by abuse of {::Thread::current} {::Thread::stop} and {::Thread#wakeup}
   class BlockingBuffer
     include Enumerable
 
